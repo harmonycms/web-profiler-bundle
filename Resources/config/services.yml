@@ -1,0 +1,9 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+services:
+  harmony.web_profiler.data_collector.harmony:
+    class: Harmony\Bundle\WebProfilerBundle\DataCollector\HarmonyCollector
+    public: false
+    arguments: ['@service_container']
+    tags:
+      - { name: data_collector, template: "HarmonyWebProfilerBundle:Collector:harmony", id: "harmony.collector" }

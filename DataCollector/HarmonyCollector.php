@@ -4,6 +4,7 @@ namespace Harmony\Bundle\WebProfilerBundle\DataCollector;
 
 use Exception;
 use Harmony\Bundle\CoreBundle\DependencyInjection\HarmonyCoreExtension;
+use Harmony\Bundle\CoreBundle\HarmonyCoreBundle;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,8 +42,8 @@ class HarmonyCollector extends DataCollector
     public function collect(Request $request, Response $response, Exception $exception = null)
     {
         $this->data = [
-            'app_name'           => $this->container->getParameter('kernel.app_name'),
-            'app_version'        => $this->container->getParameter('kernel.app_version'),
+            'app_name'           => 'HarmonyCMS',
+            'app_version'        => HarmonyCoreBundle::VERSION,
             'harmony_parameters' => array_filter($this->container->getParameterBag()->all(), function ($key) {
                 return strpos($key, HarmonyCoreExtension::ALIAS . '.') === 0;
             }, ARRAY_FILTER_USE_KEY)

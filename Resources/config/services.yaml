@@ -4,4 +4,4 @@ services:
   Harmony\Bundle\WebProfilerBundle\DataCollector\HarmonyCollector:
     arguments: ['@service_container']
     tags:
-      - { name: data_collector, template: "HarmonyWebProfilerBundle:Collector:harmony", id: "harmony.collector" }
+      - { name: data_collector, template: "@HarmonyWebProfiler/Collector/harmony.html.twig", id: "harmony.collector" }

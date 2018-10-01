@@ -73,4 +73,12 @@ class HarmonyCollector extends DataCollector
     {
         return 'harmony.collector';
     }
+
+    /**
+     * Resets this data collector to its initial state.
+     */
+    public function reset()
+    {
+        $this->data = [];
+    }
 }

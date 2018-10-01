@@ -22,11 +22,11 @@ class HarmonyWebProfilerExtension extends Extension
      * @param ContainerBuilder $container A ContainerBuilder instance
      *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
+     * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new loader\YamlFileLoader($container,
-            new FileLocator(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Resources/config'));
+        $loader = new loader\YamlFileLoader($container, new FileLocator(dirname(__DIR__) . '/Resources/config'));
         $loader->load('services.yml');
     }
 }

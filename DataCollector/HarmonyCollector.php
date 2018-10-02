@@ -5,8 +5,7 @@ namespace Harmony\Bundle\WebProfilerBundle\DataCollector;
 use Exception;
 use Harmony\Bundle\CoreBundle\DependencyInjection\HarmonyCoreExtension;
 use Harmony\Bundle\CoreBundle\HarmonyCoreBundle;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -19,17 +18,17 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 class HarmonyCollector extends DataCollector
 {
 
-    /** @var Container */
-    protected $container;
+    /** @var ParameterBagInterface $parameterBag */
+    protected $parameterBag;
 
     /**
      * Constructor.
      *
-     * @param ContainerInterface|Container $container
+     * @param ParameterBagInterface $parameterBag
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ParameterBagInterface $parameterBag)
     {
-        $this->container = $container;
+        $this->parameterBag = $parameterBag;
     }
 
     /**
@@ -44,7 +43,7 @@ class HarmonyCollector extends DataCollector
         $this->data = [
             'app_name'           => HarmonyCoreBundle::NAME,
             'app_version'        => HarmonyCoreBundle::VERSION,
-            'harmony_parameters' => array_filter($this->container->getParameterBag()->all(), function ($key) {
+            'harmony_parameters' => array_filter($this->parameterBag->all(), function ($key) {
                 return strpos($key, HarmonyCoreExtension::ALIAS . '.') === 0;
             }, ARRAY_FILTER_USE_KEY)
         ];
@@ -72,7 +71,7 @@ class HarmonyCollector extends DataCollector
      */
     public function getName(): string
     {
-        return 'harmony.collector';
+        return 'harmony';
     }
 
     /**

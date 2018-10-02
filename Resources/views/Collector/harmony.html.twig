@@ -84,13 +84,15 @@
     <tr>
       <th>Name</th>
       <th>Path</th>
+      <th>Version</th>
     </tr>
     </thead>
     <tbody>
-    {% for path, name in collector.data('available_themes') %}
+    {% for name, data in collector.data('available_themes') %}
       <tr>
-        <th>{{ name }}</th>
-        <td>{{ path }}</td>
+        <th>{{ data.extra['harmony-theme'].display_name }}</th>
+        <td>{{ data.pathname }}</td>
+        <td>{{ data.version }}</td>
       </tr>
     {% endfor %}
     </tbody>

@@ -53,7 +53,7 @@ class HarmonyCollector extends DataCollector
                 return strpos($key, HarmonyCoreExtension::ALIAS . '.') === 0;
             }, ARRAY_FILTER_USE_KEY),
             'active_theme'       => $this->activeTheme->getName(),
-            'available_themes'   => $this->activeTheme->getThemes()
+            'available_themes'   => $this->activeTheme->getThemeData()
         ];
     }
 

@@ -42,7 +42,7 @@ class HarmonyCollector extends DataCollector
     public function collect(Request $request, Response $response, Exception $exception = null)
     {
         $this->data = [
-            'app_name'           => 'HarmonyCMS',
+            'app_name'           => HarmonyCoreBundle::NAME,
             'app_version'        => HarmonyCoreBundle::VERSION,
             'harmony_parameters' => array_filter($this->container->getParameterBag()->all(), function ($key) {
                 return strpos($key, HarmonyCoreExtension::ALIAS . '.') === 0;
@@ -80,6 +80,6 @@ class HarmonyCollector extends DataCollector
      */
     public function reset()
     {
-        $this->data = [];
+        $this->data['harmony_parameters'] = [];
     }
 }

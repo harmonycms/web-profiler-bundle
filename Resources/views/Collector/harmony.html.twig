@@ -49,16 +49,18 @@
 
 {% block panel %}
   <h2>{{ collector.data('app_name') }} Configuration</h2>
-
   <div class="metrics">
     <div class="metric">
       <span class="value">{{ collector.data('app_version') }}</span>
       <span class="label">Application version</span>
     </div>
+    <div class="metric">
+      <span class="value">{{ collector.data('active_theme') }}</span>
+      <span class="label">Active theme</span>
+    </div>
   </div>
 
   <h2>Parameters</h2>
-
   <table>
     <thead class="small">
     <tr>
@@ -71,6 +73,24 @@
       <tr>
         <th>{{ key }}</th>
         <td>{{ param }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Available themes</h2>
+  <table>
+    <thead class="small">
+    <tr>
+      <th>Name</th>
+      <th>Path</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for path, name in collector.data('available_themes') %}
+      <tr>
+        <th>{{ name }}</th>
+        <td>{{ path }}</td>
       </tr>
     {% endfor %}
     </tbody>

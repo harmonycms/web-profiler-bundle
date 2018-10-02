@@ -5,6 +5,7 @@ namespace Harmony\Bundle\WebProfilerBundle\DataCollector;
 use Exception;
 use Harmony\Bundle\CoreBundle\DependencyInjection\HarmonyCoreExtension;
 use Harmony\Bundle\CoreBundle\HarmonyCoreBundle;
+use Harmony\Bundle\ThemeBundle\ActiveTheme;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,14 +22,19 @@ class HarmonyCollector extends DataCollector
     /** @var ParameterBagInterface $parameterBag */
     protected $parameterBag;
 
+    /** @var ActiveTheme $activeTheme */
+    protected $activeTheme;
+
     /**
      * Constructor.
      *
      * @param ParameterBagInterface $parameterBag
+     * @param ActiveTheme           $activeTheme
      */
-    public function __construct(ParameterBagInterface $parameterBag)
+    public function __construct(ParameterBagInterface $parameterBag, ActiveTheme $activeTheme)
     {
         $this->parameterBag = $parameterBag;
+        $this->activeTheme  = $activeTheme;
     }
 
     /**
@@ -45,7 +51,9 @@ class HarmonyCollector extends DataCollector
             'app_version'        => HarmonyCoreBundle::VERSION,
             'harmony_parameters' => array_filter($this->parameterBag->all(), function ($key) {
                 return strpos($key, HarmonyCoreExtension::ALIAS . '.') === 0;
-            }, ARRAY_FILTER_USE_KEY)
+            }, ARRAY_FILTER_USE_KEY),
+            'active_theme'       => $this->activeTheme->getName(),
+            'available_themes'   => $this->activeTheme->getThemes()
         ];
     }
 

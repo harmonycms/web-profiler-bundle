@@ -20,10 +20,6 @@
   {% set text %}
     <div class="sf-toolbar-info-group">
       <div class="sf-toolbar-info-piece">
-        <b>Version</b>
-        <span>{{ collector.data('app_version') }}</span>
-      </div>
-      <div class="sf-toolbar-info-piece">
         <b>Resources</b>
         <span>
           <a href="https://docs.harmonycms.net" rel="help" target="_blank">
@@ -71,8 +67,8 @@
     <tbody>
     {% for key, param in collector.data('harmony_parameters') %}
       <tr>
-        <th>{{ key }}</th>
-        <td>{{ param }}</td>
+        <th scope="row" class="font-normal">{{ key }}</th>
+        <td class="font-normal">{{ param }}</td>
       </tr>
     {% endfor %}
     </tbody>
@@ -90,9 +86,9 @@
     <tbody>
     {% for name, data in collector.data('available_themes') %}
       <tr>
-        <th>{{ data.extra['harmony-theme'].display_name }}</th>
-        <td>{{ data.pathname }}</td>
-        <td>{{ data.version }}</td>
+        <th scope="row" class="font-normal">{{ data.name }}</th>
+        <td class="font-normal">{{ data.pathname }}</td>
+        <td class="font-normal">{{ data.version }}</td>
       </tr>
     {% endfor %}
     </tbody>

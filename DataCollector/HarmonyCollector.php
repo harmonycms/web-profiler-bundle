@@ -25,6 +25,9 @@ class HarmonyCollector extends DataCollector
     /** @var ActiveTheme $activeTheme */
     protected $activeTheme;
 
+    /** @var array $toolbars */
+    protected $toolbars = [];
+
     /**
      * Constructor.
      *
@@ -47,6 +50,7 @@ class HarmonyCollector extends DataCollector
     public function collect(Request $request, Response $response, Exception $exception = null)
     {
         $this->data = [
+            'toolbars'           => $this->toolbars,
             'app_name'           => HarmonyCoreBundle::NAME,
             'app_version'        => HarmonyCoreBundle::VERSION,
             'harmony_parameters' => array_filter($this->parameterBag->all(), function ($key) {
@@ -88,5 +92,14 @@ class HarmonyCollector extends DataCollector
     public function reset()
     {
         $this->data['harmony_parameters'] = [];
+        $this->data['toolbars']           = [];
+    }
+
+    /**
+     * @param AbstractHarmonyCollector $collector
+     */
+    public function addCollector(AbstractHarmonyCollector $collector)
+    {
+        $this->toolbars[] = $collector->getToolbar()->getContent();
     }
 }

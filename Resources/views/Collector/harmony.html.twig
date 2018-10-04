@@ -27,6 +27,7 @@
 {% endblock %}
 
 {% block toolbar_info_pieces %}
+  {% for toolbar in collector.data('toolbars') %}{{ toolbar|raw }}{% endfor %}
   <div class="sf-toolbar-info-piece">
     <b>Resources</b>
     <span>

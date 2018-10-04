@@ -19,19 +19,23 @@
 
   {% set text %}
     <div class="sf-toolbar-info-group">
-      <div class="sf-toolbar-info-piece">
-        <b>Resources</b>
-        <span>
-          <a href="https://docs.harmonycms.net" rel="help" target="_blank">
-            HarmonyCMS Documentation
-          </a>
-        </span>
-      </div>
+      {{ block('toolbar_info_pieces') }}
     </div>
   {% endset %}
 
   {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url, additional_classes: 'sf-toolbar-block-right' } %}
 {% endblock %}
+
+{% block toolbar_info_pieces %}
+  <div class="sf-toolbar-info-piece">
+    <b>Resources</b>
+    <span>
+      <a href="https://docs.harmonycms.net" rel="help" target="_blank">
+        HarmonyCMS Documentation
+      </a>
+    </span>
+  </div>
+{% endblock toolbar_info_group %}
 
 {% block menu %}
   {% import _self as self %}

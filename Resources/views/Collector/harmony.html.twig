@@ -70,10 +70,12 @@
     </thead>
     <tbody>
     {% for key, param in collector.data('harmony_parameters') %}
-      <tr>
-        <th scope="row" class="font-normal">{{ key }}</th>
-        <td class="font-normal">{{ param }}</td>
-      </tr>
+      {% if param is not iterable %}
+        <tr>
+          <th scope="row" class="font-normal">{{ key }}</th>
+          <td class="font-normal">{{ param }}</td>
+        </tr>
+      {% endif %}
     {% endfor %}
     </tbody>
   </table>

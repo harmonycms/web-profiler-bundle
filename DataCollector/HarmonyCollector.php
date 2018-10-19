@@ -69,8 +69,8 @@ class HarmonyCollector extends DataCollector
      */
     public function getData(string $key)
     {
-        if (!isset($this->data[$key])) {
-            throw new Exception('Key doesn\'t exists');
+        if (!array_key_exists($key, $this->data)) {
+            throw new Exception('Key "' . $key . '"" doesn\'t exists');
         }
 
         return $this->data[$key];

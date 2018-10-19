@@ -55,7 +55,11 @@
       <span class="label">Application version</span>
     </div>
     <div class="metric">
-      <span class="value">{{ collector.data('active_theme') }}</span>
+      {% if collector.data('active_theme') %}
+        <span class="value">{{ collector.data('active_theme') }}</span>
+      {% else %}
+        <span class="value">{{ include('@WebProfiler/Icon/no.svg') }}</span>
+      {% endif %}
       <span class="label">Active theme</span>
     </div>
   </div>
@@ -73,7 +77,7 @@
       {% if param is not iterable %}
         <tr>
           <th scope="row" class="font-normal">{{ key }}</th>
-          <td class="font-normal">{{ param }}</td>
+          <td class="font-normal">{{ param ? param : 'n/a' }}</td>
         </tr>
       {% endif %}
     {% endfor %}

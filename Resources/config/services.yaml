@@ -1,7 +1,13 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 services:
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true
+    bind:
+      $activeTheme: '@liip_theme.active_theme'
+
   Harmony\Bundle\WebProfilerBundle\DataCollector\HarmonyCollector:
-    arguments: ['@parameter_bag', '@liip_theme.active_theme']
     tags:
       - { name: data_collector, template: "@HarmonyWebProfiler/Collector/harmony.html.twig", id: "harmony" }

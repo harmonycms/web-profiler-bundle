@@ -3,13 +3,14 @@
 namespace Harmony\Bundle\WebProfilerBundle\DataCollector;
 
 use Exception;
-use Harmony\Bundle\CoreBundle\DependencyInjection\HarmonyCoreExtension;
+use Harmony\Bundle\CoreBundle\Component\HttpKernel\AbstractKernel;
 use Harmony\Bundle\CoreBundle\HarmonyCoreBundle;
-use Harmony\Bundle\ThemeBundle\ActiveTheme;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Harmony\Bundle\CoreBundle\Manager\SettingsManager;
+use Liip\ThemeBundle\ActiveTheme;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Class HarmonyCollector
@@ -19,25 +20,30 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 class HarmonyCollector extends DataCollector
 {
 
-    /** @var ParameterBagInterface $parameterBag */
-    protected $parameterBag;
-
     /** @var ActiveTheme $activeTheme */
     protected $activeTheme;
 
     /** @var array $toolbars */
     protected $toolbars = [];
 
+    /** @var KernelInterface $kernel */
+    protected $kernel;
+
+    /** @var settingsManager $settingsManager */
+    protected $settingsManager;
+
     /**
      * Constructor.
      *
-     * @param ParameterBagInterface $parameterBag
-     * @param ActiveTheme           $activeTheme
+     * @param KernelInterface|AbstractKernel $kernel
+     * @param settingsManager                $settingsManager
+     * @param ActiveTheme                    $activeTheme
      */
-    public function __construct(ParameterBagInterface $parameterBag, ActiveTheme $activeTheme)
+    public function __construct(KernelInterface $kernel, settingsManager $settingsManager, ActiveTheme $activeTheme)
     {
-        $this->parameterBag = $parameterBag;
-        $this->activeTheme  = $activeTheme;
+        $this->kernel          = $kernel;
+        $this->settingsManager = $settingsManager;
+        $this->activeTheme     = $activeTheme;
     }
 
     /**
@@ -50,14 +56,12 @@ class HarmonyCollector extends DataCollector
     public function collect(Request $request, Response $response, Exception $exception = null)
     {
         $this->data = [
-            'toolbars'           => $this->toolbars,
-            'app_name'           => HarmonyCoreBundle::NAME,
-            'app_version'        => HarmonyCoreBundle::VERSION,
-            'harmony_parameters' => array_filter($this->parameterBag->all(), function ($key) {
-                return strpos($key, HarmonyCoreExtension::ALIAS . '.') === 0;
-            }, ARRAY_FILTER_USE_KEY),
-            'active_theme'       => $this->activeTheme->getName(),
-            'available_themes'   => $this->activeTheme->getThemeData()
+            'toolbars'         => $this->toolbars,
+            'app_name'         => HarmonyCoreBundle::NAME,
+            'app_version'      => HarmonyCoreBundle::VERSION,
+            'settings'         => $this->settingsManager->getSettingsByDomain(array_keys($this->settingsManager->getDomains())),
+            'active_theme'     => $this->activeTheme->getName(),
+            'available_themes' => $this->kernel->getThemes()
         ];
     }
 

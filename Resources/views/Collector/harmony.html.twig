@@ -64,41 +64,47 @@
     </div>
   </div>
 
-  <h2>Parameters</h2>
+  <h2>Available Themes ({{ collector.data('available_themes')|length }})</h2>
   <table>
-    <thead class="small">
+    <thead>
     <tr>
-      <th>Name</th>
-      <th>Value</th>
+      <th>Identifier</th>
+      <th>Version</th>
+      <th>Path</th>
     </tr>
     </thead>
     <tbody>
-    {% for key, param in collector.data('harmony_parameters') %}
-      {% if param is not iterable %}
-        <tr>
-          <th scope="row" class="font-normal">{{ key }}</th>
-          <td class="font-normal">{{ param ? param : 'n/a' }}</td>
-        </tr>
-      {% endif %}
+    {% for name, theme in collector.data('available_themes') %}
+      <tr>
+        <th scope="row" class="font-normal">{{ theme.identifier }}</th>
+        <td class="font-normal">{{ theme.version }}</td>
+        <td class="font-normal">
+          <pre class="sf-dump"><strong class="sf-dump-ellipsis">{{ theme.path }}</strong></pre>
+        </td>
+      </tr>
     {% endfor %}
     </tbody>
   </table>
 
-  <h2>Available themes</h2>
+  <h2>Settings</h2>
   <table>
-    <thead class="small">
+    <thead>
     <tr>
       <th>Name</th>
-      <th>Path</th>
-      <th>Version</th>
+      <th>Domain</th>
+      <th>Type</th>
+      <th>Provider Name</th>
+      <th>Value</th>
     </tr>
     </thead>
     <tbody>
-    {% for name, data in collector.data('available_themes') %}
+    {% for name, setting in collector.data('settings') %}
       <tr>
-        <th scope="row" class="font-normal">{{ data.name }}</th>
-        <td class="font-normal">{{ data.pathname }}</td>
-        <td class="font-normal">{{ data.version }}</td>
+        <th scope="row" class="font-normal">{{ name }}</th>
+        <td class="font-normal">{{ setting.domain.name }}</td>
+        <td class="font-normal">{{ setting.type }}</td>
+        <td class="font-normal">{{ setting.providerName }}</td>
+        <td class="font-normal">{{ setting.data }}</td>
       </tr>
     {% endfor %}
     </tbody>

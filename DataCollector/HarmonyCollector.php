@@ -61,7 +61,8 @@ class HarmonyCollector extends DataCollector
             'app_version'      => HarmonyCoreBundle::VERSION,
             'settings'         => $this->settingsManager->getSettingsByDomain(array_keys($this->settingsManager->getDomains())),
             'active_theme'     => $this->activeTheme->getName(),
-            'available_themes' => $this->kernel->getThemes()
+            'available_themes' => $this->kernel->getThemes(),
+            'extensions'       => $this->kernel->getExtensions(),
         ];
     }
 

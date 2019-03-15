@@ -20,7 +20,7 @@
   "require-dev": {
     "harmony/core-bundle": "dev-master",
     "harmony/theme-bundle": "dev-master",
-    "helis/settings-manager-bundle": "dev-master",
+    "harmony/settings-manager-bundle": "dev-master",
     "symfony/dependency-injection": "~4.2"
   },
   "autoload": {

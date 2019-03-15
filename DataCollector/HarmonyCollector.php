@@ -5,7 +5,7 @@ namespace Harmony\Bundle\WebProfilerBundle\DataCollector;
 use Exception;
 use Harmony\Bundle\CoreBundle\Component\HttpKernel\AbstractKernel;
 use Harmony\Bundle\CoreBundle\HarmonyCoreBundle;
-use Harmony\Bundle\CoreBundle\Manager\SettingsManager;
+use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use Liip\ThemeBundle\ActiveTheme;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -116,7 +116,7 @@
       <th>Domain</th>
       <th>Type</th>
       <th>Provider Name</th>
-      <th>Value</th>
+      <th>Value(s)</th>
     </tr>
     </thead>
     <tbody>
@@ -126,7 +126,7 @@
         <td class="font-normal">{{ setting.domain.name }}</td>
         <td class="font-normal">{{ setting.type }}</td>
         <td class="font-normal">{{ setting.providerName }}</td>
-        <td class="font-normal">{{ setting.data }}</td>
+        <td class="font-normal">{{ setting.data|join(',') }}</td>
       </tr>
     {% endfor %}
     </tbody>

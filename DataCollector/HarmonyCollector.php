@@ -29,9 +29,6 @@ class HarmonyCollector extends DataCollector
     /** @var KernelInterface $kernel */
     protected $kernel;
 
-    /** @var settingsManager $settingsManager */
-    protected $settingsManager;
-
     /**
      * Constructor.
      *
@@ -57,7 +54,6 @@ class HarmonyCollector extends DataCollector
             'toolbars'         => $this->toolbars,
             'app_name'         => HarmonyCoreBundle::NAME,
             'app_version'      => HarmonyCoreBundle::VERSION,
-            'settings'         => [],
             'active_theme'     => $this->activeTheme->getName(),
             'available_themes' => $this->kernel->getThemes(),
             'extensions'       => $this->kernel->getExtensions(),

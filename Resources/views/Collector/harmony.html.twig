@@ -107,28 +107,4 @@
     {% endfor %}
     </tbody>
   </table>
-
-  <h2>Settings</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Domain</th>
-      <th>Type</th>
-      <th>Provider Name</th>
-      <th>Value(s)</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for name, setting in collector.data('settings') %}
-      <tr>
-        <th scope="row" class="font-normal">{{ name }}</th>
-        <td class="font-normal">{{ setting.domain.name }}</td>
-        <td class="font-normal">{{ setting.type }}</td>
-        <td class="font-normal">{{ setting.providerName }}</td>
-        <td class="font-normal">{{ setting.data|join(',') }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
 {% endblock %}

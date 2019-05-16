@@ -5,12 +5,12 @@ namespace Harmony\Bundle\WebProfilerBundle\DataCollector;
 use Exception;
 use Harmony\Bundle\CoreBundle\Component\HttpKernel\AbstractKernel;
 use Harmony\Bundle\CoreBundle\HarmonyCoreBundle;
-use Harmony\Bundle\SettingsManagerBundle\Settings\SettingsManager;
 use Liip\ThemeBundle\ActiveTheme;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\KernelInterface;
+use function array_key_exists;
 
 /**
  * Class HarmonyCollector
@@ -36,14 +36,12 @@ class HarmonyCollector extends DataCollector
      * Constructor.
      *
      * @param KernelInterface|AbstractKernel $kernel
-     * @param settingsManager                $settingsManager
      * @param ActiveTheme                    $activeTheme
      */
-    public function __construct(KernelInterface $kernel, settingsManager $settingsManager, ActiveTheme $activeTheme)
+    public function __construct(KernelInterface $kernel, ActiveTheme $activeTheme)
     {
-        $this->kernel          = $kernel;
-        $this->settingsManager = $settingsManager;
-        $this->activeTheme     = $activeTheme;
+        $this->kernel      = $kernel;
+        $this->activeTheme = $activeTheme;
     }
 
     /**
@@ -59,7 +57,7 @@ class HarmonyCollector extends DataCollector
             'toolbars'         => $this->toolbars,
             'app_name'         => HarmonyCoreBundle::NAME,
             'app_version'      => HarmonyCoreBundle::VERSION,
-            'settings'         => $this->settingsManager->getSettingsByDomain(array_keys($this->settingsManager->getDomains())),
+            'settings'         => [],
             'active_theme'     => $this->activeTheme->getName(),
             'available_themes' => $this->kernel->getThemes(),
             'extensions'       => $this->kernel->getExtensions(),
